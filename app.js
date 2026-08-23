@@ -1,26 +1,25 @@
 // ============================================================
-// CARGA MENTAL — app.js
+// CARGA MENTAL â€” app.js
 // Requiere que firebase-config.js haya inicializado `firebase`
 // con firebase.initializeApp({...}) ANTES de este script.
 // ============================================================
 
 const CATEGORIES = [
-  { id: 'salud',      label: 'Salud',            color: 'var(--c-salud)',      keywords: ['doctor','dentista','remedio','pastilla','control','examen','vacuna','salud','cita medica','farmacia','hora medica','clinica'] },
-  { id: 'reembolsos', label: 'Reembolsos',        color: 'var(--c-reembolsos)', keywords: ['reembolso','reembolsar','isapre','fonasa','devolucion','devolver plata'] },
-  { id: 'compras',    label: 'Compras',           color: 'var(--c-compras)',   keywords: ['comprar','super','mercado','tienda','pedido','delivery','encargar'] },
-  { id: 'deseos',     label: 'Lista de deseos',   color: 'var(--c-deseos)',    keywords: ['deseo','regalo','wishlist','antojo','capricho','quiero comprar','me gustaria tener'] },
-  { id: 'viajes',     label: 'Viajes',            color: 'var(--c-viajes)',    keywords: ['viaje','vuelo','hotel','pasaje','reserva','maleta','vacaciones'] },
-  { id: 'finanzas',   label: 'Finanzas',          color: 'var(--c-finanzas)',  keywords: ['pagar','pago','cuenta','tarjeta','banco','deuda','ahorro','presupuesto','boleta','factura','seguro'] },
-  { id: 'hogar',      label: 'Hogar y trámites',  color: 'var(--c-hogar)',     keywords: ['tramite','cedula','municipal','reparacion','arreglo','casa','hogar','mantencion','gasfiter','electricista','certificado','renovar'] },
-  { id: 'eventos',    label: 'Eventos',           color: 'var(--c-eventos)',   keywords: ['cumpleanos','fiesta','celebracion','aniversario','matrimonio','evento','invitacion'] },
-  { id: 'laboral',    label: 'Laboral',           color: 'var(--c-laboral)',   keywords: ['reunion de trabajo','reunion equipo','jefe','proyecto','informe','entrega','oficina','cliente','pega','sueldo'] },
-  { id: 'otros',      label: 'Otros',             color: 'var(--c-otros)',     keywords: [] },
+  { id: 'salud',    label: 'Salud',    color: 'var(--c-salud)',    keywords: ['doctor','dentista','remedio','pastilla','control','examen','vacuna','salud','cita medica','farmacia','hora medica','clinica'] },
+  { id: 'viajes',   label: 'Viajes',   color: 'var(--c-viajes)',   keywords: ['viaje','vuelo','hotel','pasaje','reserva','maleta','vacaciones','itinerario'] },
+  { id: 'compras',  label: 'Compras',  color: 'var(--c-compras)',  keywords: ['comprar','super','mercado','tienda','pedido','delivery','encargar'] },
+  { id: 'deseos',   label: 'Lista de deseos', color: 'var(--c-deseos)', keywords: ['deseo','regalo','wishlist','antojo','capricho','quiero comprar','me gustaria tener'] },
+  { id: 'eventos',  label: 'Eventos',  color: 'var(--c-eventos)',  keywords: ['cumpleanos','fiesta','celebracion','aniversario','matrimonio','evento','invitacion','reunion familiar','junta'] },
+  { id: 'laboral',  label: 'Laboral',  color: 'var(--c-laboral)',  keywords: ['reunion de trabajo','reunion equipo','jefe','proyecto','informe','entrega','oficina','cliente','pega','sueldo','recordatorio de trabajo'] },
+  { id: 'hogar',    label: 'Hogar',    color: 'var(--c-hogar)',    keywords: ['tramite','cedula','municipal','reparacion','arreglo','casa','hogar','mantencion','gasfiter','electricista','certificado','renovar'] },
+  { id: 'finanzas', label: 'Finanzas', color: 'var(--c-finanzas)', keywords: ['pagar','pago','cuenta','tarjeta','banco','deuda','ahorro','presupuesto','boleta','factura','seguro','organizar plata','reembolso','reembolsar','isapre','fonasa','devolucion'] },
+  { id: 'otros',    label: 'Nota mental', color: 'var(--c-otros)',  keywords: [] },
 ];
 
 const catById = id => CATEGORIES.find(c => c.id === id) || CATEGORIES[CATEGORIES.length - 1];
 
 const COMMON_CHORES = [
-  'Planchar', 'Limpiar baño', 'Cambiar sábanas', 'Aspirar', 'Lavar loza',
+  'Planchar', 'Limpiar baÃ±o', 'Cambiar sÃ¡banas', 'Aspirar', 'Lavar loza',
   'Sacar la basura', 'Regar las plantas', 'Limpiar cocina', 'Lavar ropa', 'Ordenar living',
 ];
 
@@ -102,7 +101,7 @@ googleSignInBtn.addEventListener('click', async () => {
     sessionStorage.setItem('gcalToken', googleAccessToken);
   } catch (err) {
     console.error(err);
-    toast('No se pudo iniciar sesión: ' + err.message);
+    toast('No se pudo iniciar sesiÃ³n: ' + err.message);
   }
 });
 
@@ -211,7 +210,7 @@ quickAddInput.addEventListener('input', () => {
   categorySelect.value = suggested;
   toggleChoreChips();
   if (suggested !== 'otros') {
-    suggestHint.textContent = `Sugerido: ${catById(suggested).label} — puedes cambiarlo si no calza.`;
+    suggestHint.textContent = `Sugerido: ${catById(suggested).label} â€” puedes cambiarlo si no calza.`;
     suggestHint.classList.remove('hidden');
   } else {
     suggestHint.classList.add('hidden');
@@ -261,7 +260,7 @@ function listenToItems() {
       checkUpcomingReminders();
     }, err => {
       console.error(err);
-      toast('Error de sincronización: ' + err.message);
+      toast('Error de sincronizaciÃ³n: ' + err.message);
     });
 }
 
@@ -280,14 +279,14 @@ function renderItems() {
           <p class="item-text">${escapeHtml(item.text)}</p>
           <div class="item-meta">
             <span class="item-tag" style="background:${cat.color}">${cat.label}</span>
-            ${dueLabel ? `<span class="item-due">📅 ${dueLabel}</span>` : ''}
-            ${item.recurring ? `<span class="item-badge-recurring">🔁 ${recurrenceLabel(item.recurrenceDays)}${item.assignedTo ? ' · ' + escapeHtml(item.assignedTo) : ''}</span>` : ''}
-            <span class="item-author">— ${escapeHtml(item.createdBy || '')}</span>
+            ${dueLabel ? `<span class="item-due">ðŸ“… ${dueLabel}</span>` : ''}
+            ${item.recurring ? `<span class="item-badge-recurring">ðŸ” ${recurrenceLabel(item.recurrenceDays)}${item.assignedTo ? ' Â· ' + escapeHtml(item.assignedTo) : ''}</span>` : ''}
+            <span class="item-author">â€” ${escapeHtml(item.createdBy || '')}</span>
           </div>
         </div>
         <div class="item-actions">
-          ${item.dueDate ? `<button class="icon-btn cal-btn" data-id="${item.id}" title="Agregar a Google Calendar">📆</button>` : ''}
-          <button class="icon-btn del-btn" data-id="${item.id}" title="Eliminar">✕</button>
+          ${item.dueDate ? `<button class="icon-btn cal-btn" data-id="${item.id}" title="Agregar a Google Calendar">ðŸ“†</button>` : ''}
+          <button class="icon-btn del-btn" data-id="${item.id}" title="Eliminar">âœ•</button>
         </div>
       </article>
     `;
@@ -298,7 +297,7 @@ function recurrenceLabel(days) {
   if (days === 7) return 'cada semana';
   if (days === 14) return 'cada 2 semanas';
   if (days === 30) return 'cada mes';
-  return `cada ${days} días`;
+  return `cada ${days} dÃ­as`;
 }
 
 function escapeHtml(s) {
@@ -312,7 +311,10 @@ itemList.addEventListener('click', async e => {
 
   if (e.target.classList.contains('item-check')) {
     const item = itemsCache.find(i => i.id === id);
-    if (item.recurring) {
+    if ((item.category === 'compras' || item.category === 'deseos') && !item.recurring) {
+      await ref.delete();
+      toast(item.category === 'compras' ? 'Comprado âœ“' : 'Cumplido âœ“');
+    } else if (item.recurring) {
       const base = item.dueDate ? new Date(item.dueDate) : new Date();
       const next = new Date(base.getTime() + item.recurrenceDays * 24 * 60 * 60000);
       await ref.update({
@@ -338,7 +340,7 @@ itemList.addEventListener('click', async e => {
 // ---------- Google Calendar ----------
 async function addToGoogleCalendar(item) {
   if (!googleAccessToken) {
-    toast('Necesitas volver a iniciar sesión para autorizar Calendar.');
+    toast('Necesitas volver a iniciar sesiÃ³n para autorizar Calendar.');
     return;
   }
   const start = new Date(item.dueDate);
@@ -346,7 +348,7 @@ async function addToGoogleCalendar(item) {
 
   const event = {
     summary: item.text,
-    description: `Creado desde Carga Mental — categoría: ${catById(item.category).label}`,
+    description: `Creado desde Carga Mental â€” categorÃ­a: ${catById(item.category).label}`,
     start: { dateTime: start.toISOString() },
     end: { dateTime: end.toISOString() },
   };
@@ -362,14 +364,14 @@ async function addToGoogleCalendar(item) {
     });
     if (!res.ok) {
       if (res.status === 401) {
-        toast('Tu sesión de Calendar expiró. Cierra sesión y vuelve a entrar.');
+        toast('Tu sesiÃ³n de Calendar expirÃ³. Cierra sesiÃ³n y vuelve a entrar.');
       } else {
         const errData = await res.json().catch(() => ({}));
         throw new Error(errData.error?.message || res.statusText);
       }
       return;
     }
-    toast('Agregado a Google Calendar ✓');
+    toast('Agregado a Google Calendar âœ“');
   } catch (err) {
     console.error(err);
     toast('No se pudo crear el evento: ' + err.message);
@@ -387,15 +389,15 @@ viewTabs.forEach(tab => {
   });
 });
 
-// ---------- Menú semanal ----------
+// ---------- MenÃº semanal ----------
 const MEALS = [
   { id: 'desayuno', label: 'Desayuno' },
   { id: 'almuerzo', label: 'Almuerzo' },
   { id: 'cena', label: 'Cena' },
 ];
 const DAYS = [
-  { id: 'lun', label: 'Lun' }, { id: 'mar', label: 'Mar' }, { id: 'mie', label: 'Mié' },
-  { id: 'jue', label: 'Jue' }, { id: 'vie', label: 'Vie' }, { id: 'sab', label: 'Sáb' }, { id: 'dom', label: 'Dom' },
+  { id: 'lun', label: 'Lun' }, { id: 'mar', label: 'Mar' }, { id: 'mie', label: 'MiÃ©' },
+  { id: 'jue', label: 'Jue' }, { id: 'vie', label: 'Vie' }, { id: 'sab', label: 'SÃ¡b' }, { id: 'dom', label: 'Dom' },
 ];
 
 let currentWeekMonday = getMonday(new Date());
@@ -417,7 +419,7 @@ function weekIdFor(monday) {
 function weekLabelFor(monday) {
   const sunday = new Date(monday.getTime() + 6 * 86400000);
   const fmt = d => d.toLocaleDateString('es-CL', { day: '2-digit', month: 'short' });
-  return `${fmt(monday)} — ${fmt(sunday)}`;
+  return `${fmt(monday)} â€” ${fmt(sunday)}`;
 }
 
 prevWeekBtn.addEventListener('click', () => {
@@ -448,7 +450,7 @@ function renderMenuGrid(weekId) {
     html += `<div class="menu-cell meal-label">${meal.label}</div>`;
     DAYS.forEach(day => {
       const value = (menuCache[day.id] && menuCache[day.id][meal.id]) || '';
-      html += `<div class="menu-cell"><textarea data-day="${day.id}" data-meal="${meal.id}" placeholder="—">${escapeHtml(value)}</textarea></div>`;
+      html += `<div class="menu-cell"><textarea data-day="${day.id}" data-meal="${meal.id}" placeholder="â€”">${escapeHtml(value)}</textarea></div>`;
     });
   });
   menuGrid.innerHTML = html;
@@ -484,17 +486,17 @@ function checkUpcomingReminders() {
     if (notifiedKeys.has(key)) return;
     const due = new Date(item.dueDate).getTime();
     const diff = due - now;
-    // avisa si vence dentro de los próximos 60 minutos
+    // avisa si vence dentro de los prÃ³ximos 60 minutos
     if (diff > 0 && diff <= 60 * 60000) {
       notifiedKeys.add(key);
-      new Notification('Carga Mental — vence pronto', {
+      new Notification('Carga Mental â€” vence pronto', {
         body: item.text,
         tag: item.id,
       });
     }
   });
 }
-setInterval(checkUpcomingReminders, 5 * 60000); // revisa cada 5 min mientras la app está abierta
+setInterval(checkUpcomingReminders, 5 * 60000); // revisa cada 5 min mientras la app estÃ¡ abierta
 
 // ---------- Service worker (PWA / instalable) ----------
 if ('serviceWorker' in navigator) {
