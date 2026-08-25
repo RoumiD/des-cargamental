@@ -54,12 +54,21 @@
     </header>
 
     <form id="quickAddForm" class="quick-add">
-      <input id="quickAddInput" type="text" placeholder="Escribe algo que necesitas organizar… (ej: pedir hora dentista, pagar cuenta luz)" autocomplete="off" required>
+      <div class="input-with-mic">
+        <input id="quickAddInput" type="text" placeholder="Escribe algo que necesitas organizar… (ej: pedir hora dentista, pagar cuenta luz)" autocomplete="off" required>
+        <button type="button" id="micBtn" class="mic-btn" title="Hablar en vez de escribir">🎤</button>
+      </div>
       <div id="choreChips" class="chore-chips hidden"></div>
       <div class="quick-add-row">
         <select id="categorySelect"></select>
         <input id="dueDateInput" type="datetime-local">
         <button type="submit" class="btn-primary btn-small">Agregar</button>
+      </div>
+      <div class="recurring-row">
+        <label class="checkbox-label">
+          <input type="checkbox" id="calendarCheckbox">
+          Agregar a Google Calendar al crear
+        </label>
       </div>
       <div class="recurring-row">
         <label class="checkbox-label">
